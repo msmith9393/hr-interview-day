@@ -22,8 +22,8 @@ class ColorContainer extends Component {
   }
 }
 
-function mapStateToProps( { colors } ) {
-  return { colors };
+function mapStateToProps( {  } ) {
+  return {  };
 }
 
 export default connect(mapStateToProps, actions)(ColorContainer);
