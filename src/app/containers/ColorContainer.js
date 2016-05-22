@@ -7,23 +7,37 @@ import { Row, Col, Grid, Image } from 'react-bootstrap';
 const _ = require('lodash');
 
 class ColorContainer extends Component {
+  componentWillMount() {
+    this.props.actions.fetchColors();
+  }
 
   render() {
-    var style = {
-      color: 'red',
-      fontSize: 200
-    };
-
     return (
-      <div className="color-container">
-        HELLO WORLD
+      <div>
+        {this.props.colors ? this.props.colors.map((color, index) => {
+          var style = {
+            color: color.hexValue,
+            fontSize: 200
+          }
+          return (<div style={style} key={index}>
+            {color.colorName}
+          </div>);
+          }) : null}
       </div>
     )
   }
 }
 
-function mapStateToProps( {  } ) {
-  return {  };
+function mapStateToProps(state) {
+  return {
+    colors: state.colors
+  };
 }
 
-export default connect(mapStateToProps, actions)(ColorContainer);
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ColorContainer);
